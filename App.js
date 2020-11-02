@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import Device from './utils/Device';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default class App extends Component {
+  renderMaster() {
+    return (
+      <Text>Render on phone and tablets.</Text>
+    );
+  }
+
+  renderDetail() {
+    if (Device.isTablet()) {
+      return (
+        <Text>Render on tablets only.</Text>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.content}>
+        {this.renderMaster()}
+        {this.renderDetail()}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  content: {
+    paddingTop: 40,
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
+
+// expo init my-app
+// expo start
